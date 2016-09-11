@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Weather</title>
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+		<script src="jquery-3.1.0.min.js"></script>
+		<script src="script.js"></script>
+	</head>
+	<body>
+	<div class="background"></div>
+	<div class="contain">
+	  <div class="hole">
+		<div class="row">
+		  <div class="col-md-12">
+			<h1 class="text-center title"><span id="location">Weather</span></h1>
+		  </div>
+		</div>
+		<hr class="styled">
+		<div class="loading">
+		  <div class="row">
+			<div class="col-md-12">
+			  <h4 class="text-center">Loading</h4>
+			</div>
+		  </div>
+		</div>
+		<div class="custominput">
+		  <div class="row">
+			<div class="col-md-12">
+			  <form id="custominput">
+				<div class="input-group"> <span class="input-group-addon citygrouplabel">Input your current location: </span>
+				  <input id="locInput" type="text" class="form-control citygrouptext" placeholder="i.e. Auckland, NZ">
+				  <span class="input-group-btn">
+				  <button type="submit" class="btn btn-default">Go!</button>
+				  </span> </div>
+			  </form>
+			</div>
+		  </div>
+		</div>
+		<div class="content">
+		  <div class="row">
+			<div class="col-md-12">
+			  <h3 class="text-center">It is currently <span id="weathertype"></span></h3>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	</body>
+</html>
