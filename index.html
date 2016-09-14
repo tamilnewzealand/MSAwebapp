@@ -9,6 +9,16 @@
 		<link rel="stylesheet" href="style.css">
 		<script src="jquery-3.1.0.min.js"></script>
 		<script src="script.js"></script>
+		<script type="text/javascript">
+			var appInsights=window.appInsights||function(config){
+			function r(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s=u.createElement(o),i,f;s.src=config.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js";u.getElementsByTagName(o)[0].parentNode.appendChild(s);try{t.cookie=u.cookie}catch(h){}for(t.queue=[],i=["Event","Exception","Metric","PageView","Trace","Dependency"];i.length;)r("track"+i.pop());return r("setAuthenticatedUserContext"),r("clearAuthenticatedUserContext"),config.disableExceptionTracking||(i="onerror",r("_"+i),f=e[i],e[i]=function(config,r,u,e,o){var s=f&&f(config,r,u,e,o);return s!==!0&&t["_"+i](config,r,u,e,o),s}),t
+			}({
+				instrumentationKey:"89d4d48f-8afc-4b80-93a8-f0eca520d4af"
+			});
+			   
+			window.appInsights=appInsights;
+			appInsights.trackPageView();
+		</script>
 	</head>
 	<body>
 	<div class="background"></div>
