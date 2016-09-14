@@ -1,4 +1,4 @@
-ar NO_GEO_EX = -1;
+var NO_GEO_EX = -1;
 
 $(document).ready(function() {
   init();
@@ -49,4 +49,54 @@ var weatherCodes = function(i){
     }else{
       return "default";
     }
+};
+
+var geoLoaded = function(geoData) {
+  var current = geoData.query.results.channel;
+  var temp = current.item.condition.temp;
+  var celsius = (current.units.temperature === "F") ? false : true;
+  var convertBetweenCF = function(val, units) {
+    if (units === "C" || units === "c") {
+      return Math.round(100 * (5 / 9 * (parseFloat(val) - 32))) / 100;
+    } else if (units === "F" || units === "f") {
+      return Math.round(100 * (1.8 * parseFloat(val) + 32)) / 100;
+    }
+    return null;
+  };
+  $(".loading").hide(400);
+  $(".custominput").hide(400);
+  $("#location").text(current.location.city + ", " + current.location.region + ", " + current.location.country);
+  $("#weathertype").html("<span id=\"temp\">" + Math.round(temp) + "</span>" + "<a href=\"#\" id=\"toggleUnits\">&deg;" + current.units.temperature + "</a>" + ", " + current.item.condition.text);
+  $("#toggleUnits").click(function() {
+    if (celsius) {
+      $("#toggleUnits").html("&deg;F");
+      temp = convertBetweenCF(temp, "F");
+    } else {
+      $("#toggleUnits").html("&deg;C");
+      temp = convertBetweenCF(temp, "C");
+    }
+    $("#temp").text(Math.round(temp * 10) / 10);
+    celsius = !celsius;
+  });
+  $(".content").show(400);
+  loadBackground(weatherCodes(current.item.condition.code));
+};
+
+var loadGeo = function() {
+  var geoEx = function(exceptionCode) {
+    $(".loading").hide(0);
+    $(".custominput").show(0);
+  };
+  if (navigator.geolocation) {
+    //ask for geolocation, dim window
+    var geo = navigator.geolocation.getCurrentPosition(function(position) {
+      var lat = position.coords.latitude;
+      var long = position.coords.longitude;
+      $.getJSON("https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (SELECT woeid FROM geo.places WHERE text=\"(" + lat + "," + long + ")\")&format=json&callback=?").done(geoLoaded);
+    }, geoEx, {
+      timeout: 8000
+    });
+  } else {
+    geoEx(NO_GEO_EX);
+  }
 };
